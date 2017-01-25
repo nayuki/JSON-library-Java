@@ -38,6 +38,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -389,9 +390,7 @@ public final class Json {
 		
 		
 		public StringStream(String s) {
-			if (s == null)
-				throw new NullPointerException();
-			string = s;
+			string = Objects.requireNonNull(s);
 			index = 0;
 			start = -1;
 		}
@@ -758,9 +757,7 @@ public final class Json {
 	 */
 	public static String getString(Object root, Object... path) {
 		String result = (String)getObject(root, path);
-		if (result == null)
-			throw new NullPointerException();
-		return result;
+		return Objects.requireNonNull(result);
 	}
 	
 	
@@ -782,9 +779,7 @@ public final class Json {
 	@SuppressWarnings("unchecked")
 	public static List<Object> getList(Object root, Object... path) {
 		List<Object> result = (List<Object>)getObject(root, path);
-		if (result == null)
-			throw new NullPointerException();
-		return result;
+		return Objects.requireNonNull(result);
 	}
 	
 	
@@ -806,9 +801,7 @@ public final class Json {
 	@SuppressWarnings("unchecked")
 	public static Map<String,Object> getMap(Object root, Object... path) {
 		Map<String,Object> result = (Map<String,Object>)getObject(root, path);
-		if (result == null)
-			throw new NullPointerException();
-		return result;
+		return Objects.requireNonNull(result);
 	}
 	
 	

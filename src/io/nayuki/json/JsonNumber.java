@@ -26,6 +26,7 @@ package io.nayuki.json;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 
@@ -55,8 +56,7 @@ public final class JsonNumber extends Number {
 	 * @throws NullPointerException if the string is {@code null}
 	 */
 	public JsonNumber(String s) {
-		if (s == null)
-			throw new NullPointerException();
+		Objects.requireNonNull(s);
 		if (!SYNTAX.matcher(s).matches())
 			throw new IllegalArgumentException("Invalid number syntax");
 		rawValue = s;
