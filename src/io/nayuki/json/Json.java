@@ -218,29 +218,19 @@ public final class Json {
 		ss.skipWhitespace();
 		ss.mark();
 		int c = ss.nextChar();
-		switch (c) {
-			case '{':
-				return parseObject(ss);
-			case '[':
-				return parseArray(ss);
-			case '"':
-				return parseString(ss);
-			case 'f':
-			case 'n':
-			case 't':
-				return parseConstant(ss);
-			case -1:
-			case ',':
-			case ':':
-			case ']':
-			case '}':
-				return new Symbol(c);
-			default:
+		return switch (c) {
+			case '{' -> parseObject(ss);
+			case '[' -> parseArray(ss);
+			case '"' -> parseString(ss);
+			case 'f', 'n', 't' -> parseConstant(ss);
+			case -1, ',', ':', ']', '}' -> new Symbol(c);
+			default -> {
 				if (c >= '0' && c <= '9' || c == '-')
-					return parseNumber(ss);
+					yield parseNumber(ss);
 				else
 					throw new IllegalArgumentException("Malformed JSON");
-		}
+			}
+		};
 	}
 	
 	
